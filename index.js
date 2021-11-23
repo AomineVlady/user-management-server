@@ -1,7 +1,7 @@
-import express from "express";
-import mongoose  from "mongoose";
-import router from "./router.js";
-import cors from "cors"
+const express = require('express');
+const mongoose = require('mongoose');
+const router = require('./router');
+const cors = require('cors');
 
 const PORT = 5000;
 const DB_URL = `mongodb+srv://admin:759500@cluster0.owj3v.mongodb.net/users?retryWrites=true&w=majority`;

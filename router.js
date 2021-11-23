@@ -1,48 +1,10 @@
-import Router from "express";
-import User from "./schemas/userSchema.js";
+const router = require('express').Router();
+const users = require('./userController.js')
 
-const router = new Router();
+router.get('/users/',users.getAll);
 
-const getAll = async (req, res) => {
-    try {
-        const users = await User.find();
-        return res.json(users);
-    } catch (error) {
-        res.status(500).json(error);
-    }
-};
+router.get('/users/:id', users.getOne);
 
-router.get('/users/',getAll);
+router.put('/users/:id', users.updateOne)
 
-router.get('/users/:id', async (req, res) => {
-    try {
-        const { id } = req.params;
-        if (!id) {
-            res.status(400).json({
-                message: 'ID not specified',
-            })
-        }
-        const user = await User.findById(id);//findOne
-        console.log(id)
-        return res.json(user)
-    } catch (error) {
-        res.status(500).json(error);
-    }
-});
-
-router.put('/users/:id', async (req, res) => {
-    try {
-        const user = req.body
-        if (!user.id) {
-            res.status(400).json({
-                message: 'ID not specified',
-            })
-        }
-        const updatedUser = await User.findByIdAndUpdate(user, { new: true })
-        return res.json(updatedUser)
-    } catch (error) {
-        res.status(500).json(error);
-    }
-});
-
-export default router;
+module.exports = router;
